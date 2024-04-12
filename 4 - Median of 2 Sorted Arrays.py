@@ -1,4 +1,4 @@
-#Method 1 make a new array and get median of new list
+#Method 1 make a new list and get median of new list
 def find_median_sorted_arrays_method_one(nums1,nums2):
     total_nums = len(nums1) + len(nums2)
     
@@ -37,8 +37,8 @@ def find_median_sorted_arrays_method_one(nums1,nums2):
     return median
 
 
-#Method 2 (less memory usage) add what would be middle elements of new array
-#
+#Method 2 (less memory usage) get the correct indices for middle 2 elements
+#Do not create new list
 def find_median_sorted_arrays_method_two(nums1,nums2):
     total_nums = len(nums1) + len(nums2)
     
@@ -83,7 +83,6 @@ def find_median_sorted_arrays_method_two(nums1,nums2):
                 elif i == half_length:
                     median += nums2[m]
                     break
-                    
                 
             if m == len(nums2) - 1:
                 nums2.append(nums1[-1]+1)            
