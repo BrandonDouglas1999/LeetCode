@@ -42,7 +42,7 @@ def find_median_sorted_arrays_method_one(nums1,nums2):
 def find_median_sorted_arrays_method_two(nums1,nums2):
     total_nums = len(nums1) + len(nums2)
     
-    odd_length = total_nums % 2 == 1
+    even_length = total_nums % 2 == 0
     half_length = (int)(total_nums / 2)
     
     #current index of nums1
@@ -53,19 +53,13 @@ def find_median_sorted_arrays_method_two(nums1,nums2):
     
     for i in range(total_nums):        
         if nums1[n] <= nums2[m]:
-            if odd_length:
-                #if at correct index
-                if i == half_length:
-                    median += nums1[n]
-                    break
-            else:
-                #if at first middle index of even length list continue
-                if i == half_length - 1:
-                    median += nums1[n]
-                #if at second middle index of even length list break
-                elif i == half_length:
-                    median += nums1[n]
-                    break
+            # If total nums is even and at the index before half length add to median
+            if i == half_length - 1 and even_length:
+                median += nums1[n]
+            #if at correct index add to meidan and break out of loop
+            elif i == half_length:
+                median += nums1[n]
+                break
             
             #if nums1 index too large add element to it larger than nums2 largest number
             if n == len(nums1) - 1:
@@ -73,23 +67,18 @@ def find_median_sorted_arrays_method_two(nums1,nums2):
             n += 1
             
         else:
-            if odd_length:
-                if i == half_length:
-                    median += nums2[m]
-                    break   
-            else:
-                if i == half_length - 1:
-                    median += nums2[m]  
-                elif i == half_length:
-                    median += nums2[m]
-                    break
+            if i == half_length - 1 and even_length:
+                median += nums2[m]
+            elif i == half_length:
+                median += nums2[m]
+                break
                 
             if m == len(nums2) - 1:
                 nums2.append(nums1[-1]+1)            
             m += 1
     
     #if even length average the two indices used.
-    if not odd_length:
+    if even_length:
         median = median/2
         
     return median
